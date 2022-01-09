@@ -1,0 +1,12 @@
+<div class="widget widget-tag-cloud">
+	<h3 class="widgettitle">Tag cloud</h3>
+	<ul>
+	   {%for tag in tag_list%}
+	     <li>
+		     <a href="{% url 'blog:tag' tag.pk%}">{{tag.name}}<span class="post-count">{{tag.nums_posts}}</a>
+	     </li>
+	   {%empty%}
+	      NO Tag!
+	   {%endfor%}
+	</ul>
+</div>

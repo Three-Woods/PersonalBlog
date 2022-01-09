@@ -1,0 +1,12 @@
+<div class="widget widget-archives">
+	<h3 class="widget-title">The archive</h3>
+	<ul>
+	    {% for date in date_list%}
+	      <li>
+		      <a href="{% url 'blog:archive' date.year date.month%}">{{date.year}}Year{{date.month}}Month</a>
+	      </li>
+	    {%empty%}
+	      NO archive
+	    {%endfor%}
+	</ul>
+</div>	

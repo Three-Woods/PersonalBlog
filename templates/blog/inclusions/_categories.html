@@ -1,0 +1,14 @@
+<div class="widget widget-category">
+	<h3 class="widget-title">classification</h3>
+	<ul>
+	   {%for category in category_list%}
+	   <li>
+		   <a href="{%url 'blog:category' category.pk%}">{{category.name}}<span class="post-count">{{category.nums_posts}}</span></a>
+	   </li>
+	   {%empty%}
+	     No classification
+	   {%endfor%}
+	</ul>
+</div>
+
+
