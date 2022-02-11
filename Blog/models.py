@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
+from users.models import User
 from django.urls import reverse
 import markdown
 from django.utils.html import strip_tags
@@ -8,6 +8,7 @@ from django.utils.functional import cached_property
 from django.utils.text import slugify
 from markdown.extensions.toc import TocExtension
 import re
+from django.conf import settings
 def generate_rich_content(value):
         md = markdown.Markdown(
             extensions=[
@@ -44,7 +45,7 @@ class Post(models.Model):
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
     tag = models.ManyToManyField(Tag,blank=True)
 
-    author = models.ForeignKey(User,on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     class Meta:
         verbose_name='post'
         verbose_name_plural = verbose_name

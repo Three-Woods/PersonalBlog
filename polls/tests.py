@@ -49,7 +49,7 @@ class QuestionIndexViewTests(TestCase):
         question1 = create_question(question_text="Past question1",days=-30)
         question2 = create_question(question_text="Past question2",days=-5)
         response = self.client.get(reverse('polls:index'))
-        self.assertQuerysetEqual(response.context['latest_question_lit'],[question2,question1],)
+        self.assertQuerysetEqual(response.context['latest_question_list'],[question2,question1],)
 
 class QuestionDetailViewTests(TestCase):
     def test_future_question(self):

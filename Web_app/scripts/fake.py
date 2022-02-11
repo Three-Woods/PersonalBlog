@@ -69,9 +69,9 @@ if __name__=='__main__':
               create_time=create_time,
               category=cate,
               author=user,
-              tag=tag.set(),
+              
                 )
-        post.tags.add(tag1,tag2)
+        post.tag.add(tag1,tag2)
         post.save()
 
     print('create some faked posts published within the past year')
@@ -85,11 +85,11 @@ if __name__=='__main__':
         post = Post.objects.create(
               title = fake.sentence().rstrip('.'),
               body='\n\n'.join(fake.paragraphs(10)),
-              created_time=create_time,
+              create_time=create_time,
               category=cate,
               author=user,
                 )
-        post.tags.add(tag1,tag2)
+        post.tag.add(tag1,tag2)
         post.save()
 
     print('create some comments')
@@ -103,7 +103,7 @@ if __name__=='__main__':
                     email =fake.email(),
                     url=fake.uri(),
                     text = fake.paragraph(),
-                    create_time=fake.date_time_between(
+                    created_time=fake.date_time_between(
                         start_date=delta_in_days,
                         end_date="now",
                         tzinfo=timezone.get_current_timezone()),

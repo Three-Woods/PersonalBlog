@@ -2,9 +2,9 @@ from django.db import models
 from django.utils import timezone
 
 class Comment(models.Model):
-    name = models.CharField('name',max_length=50)
+    name = models.CharField('name',max_length=70)
     email = models.EmailField('email')
-    url = models.URLField('Web-site',blank=True)
+   # url = models.URLField('Web-site',blank=True)
     text = models.TextField()
     created_time = models.DateTimeField('created_time',default=timezone.now)
     post = models.ForeignKey('Blog.Post',on_delete=models.CASCADE)

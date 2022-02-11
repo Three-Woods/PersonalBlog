@@ -38,8 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'haystack',
     'Blog',
     'comments.apps.CommentsConfig',
+    'pure_pagination',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +54,22 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+PAGINATION_SETTINGS = {
+        'PAGE_RANGE_DISPLAYED':4,
+        'MARGIN_PAGES_DISPLAYED':2,
+        'SHOW_FIRST_PAGE_WHEN_INVALID':True,
+        }
+
+HAYSTACK_CONNECTIONS = {
+    'default':{
+        'ENGING':'blog.elasticsearch2_ik_backend.Elasticsearch2IkSearchEngine',
+        'URL':'',
+        'INDEX_NAME':'sanmugroceryroom',},
+    }
+HAYSTACK_SEARCH_RESULTS_PER_PAGE=10
+HAYSTACK_SIGNAL_PROCESSOR='haystack.signals.RealtimeSignalProcessor'
+HAYSTACK_CUSTOM_HIGHLIGHTER = 'Blog.utils.Highlighter'
 
 ROOT_URLCONF = 'Web_app.urls'
 
@@ -101,14 +120,17 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-
+AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',
+        'users.backends.EmailBackend',
+        )
+AUTH_USER_MODEL='users.User'
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
+EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+LANGUAGE_CODE = 'zh-hans'
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 

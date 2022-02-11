@@ -7,5 +7,5 @@ class CommentForm(forms.ModelForm):
         #The forms is belong to Comment class
         model = Comment
         #fields: Specifies the fields that the form needs to display
-        fields = ['name','email','url','text']
+        fields = ['name','email','text']
 

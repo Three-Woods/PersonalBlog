@@ -7,6 +7,8 @@ from django.utils.text import slugify
 from markdown.extensions.toc import TocExtension
 from django.views.generic import ListView,DetailView
 from django.db.models import Q
+from pure_pagination import PaginationMixin
+
 def search(request):
     
     q = request.GET.get('q')
@@ -19,11 +21,11 @@ def search(request):
     post_list = Post.objects.filter(Q(title__icontains=q)|Q(body__icontains=q))
     return render(request,'blog/index.html',{'post_list':post_list})
 
-class IndexView(ListView):
+class IndexView(PaginationMixin,ListView):
     model = Post
     template_name='blog/index.html'
     context_object_name='post_list'
-
+    paginate_by=10
 class ArchiveView(IndexView):
    # model = Post
    # template_name='blog/index.html'
@@ -56,13 +58,12 @@ class PostDetailView(DetailView):
         self.object.increase_views()
         return response
 
-    def get_object(self,queryset=None):
-        post =super().get_object(queryset=None)
-    
-        md = markdown.Markdown(extensions
-            =['markdown.extensions.extra','markdown.extensions.codehilite',TocExtension(slugify=slugify),])
-        post.body=md.convert(post.body)
-        m=re.search(r'<div class="toc">\s*<ul>(.*)</ul>\s*</div>', md.toc, re.S)
-        post.toc=m.group(1) if m is not None else ''
-        return post
+#    def get_object(value):
+
+#        md = markdown.Markdown(extensions
+#            =['markdown.extensions.extra','markdown.extensions.codehilite',TocExtension(slugify=slugify),])
+#        content=md.convert(value)
+#        m=re.search(r'<div class="toc">\s*<ul>(.*)</ul>\s*</div>', md.toc, re.S)
+#        toc=m.group(1) if m is not None else ''
+#        return {"content":content,"toc":toc}
 # Create your views here.

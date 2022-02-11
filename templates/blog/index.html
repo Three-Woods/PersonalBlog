@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Black &amp; White</title>
+    <title>三木杂货间</title>
 
     <!-- meta -->
     <meta charset="UTF-8">
@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-md-4 col-sm-5 col-xs-8">
                 <div class="logo">
-                    <h1><a href="index.html"><b>Black</b> &amp; White</a></h1>
+			<h1><a href="index.html"><b>三木杂货间</a></h1>
                 </div>
             </div><!-- col-md-4 -->
             <div class="col-md-8 col-sm-7 col-xs-4">
@@ -51,8 +51,8 @@
                 <div id="header-search-box">
                     <a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
                     <div id="search-form" class="search-form">
-                        <form role="search" method="get" id="searchform" action="#">
-                            <input type="search" placeholder="搜索" required>
+			    <form role="search" method="get" id="searchform" action="{% url 'haystack_search'%}">
+                            <input type="search" name="q" placeholder="搜索" required>
                             <button type="submit"><span class="ion-ios-search-strong"></span></button>
                         </form>
                     </div>
@@ -62,7 +62,7 @@
     </header>
 </div>
 <div class="copyrights">Collect from <a href="http://www.cssmoban.com/">网页模板</a></div>
-<div class="copyrights">Modified by <a href="http://zmrenwu.com/">追梦人物的博客</a></div>
+<div class="copyrights">Modified by <a href="http://zmrenwu.com/">三木杂货间</a></div>
 
 <div class="content-body">
     <div class="container">
@@ -92,18 +92,11 @@
                     </div>
                 </article>
 	      {% empty %}
+	      
 	        <div class="no-post">No paper!</div>
 	      {% endfor %}
-	        {%if is_paginate%} 
-                <div class="pagination-simple">
-		    {%if page_object.has_previous%}
-		      <a href="?page={{page_obj.previous_page_num}}">上一页</a>
-		    {%endif%}
-		    <span class="current">第{{page.obj.number}} 页 / 共 {{paginator.num_pages}} 页</span>
-		    {%if page_obj.has_next%}
-		      <a href="?page={{page_obj.next_page_number}}">下一页</a>
-		    {%endif%}  
-                </div>
+	        {%if is_paginated%} 
+               		{{page_obj.render}}
 		{%endif%}
  	    {% endblock main %}	
             </main>
@@ -196,7 +189,7 @@
             <div class="col-md-12">
                 <p class="copyright">&copy 2017 - 采集自<a href="http://www.cssmoban.com/"
                                                         target="_blank" title="模板之家">模板之家</a>
-                    - 由<a href="http://zmrenwu.com/" title="网页模板" target="_blank">追梦人物的博客</a>修改
+                    - 由<a href="http://sanmugroceryroom.com/" title="网页模板" target="_blank">三木杂货间</a>修改
                 </p>
             </div>
         </div>
